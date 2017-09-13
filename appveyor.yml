@@ -1,0 +1,25 @@
+init:
+  - git config --global core.autocrlf input
+
+version: 0.0.{build}
+
+install:
+  - cmd: pip install -U Sphinx
+  - cmd: pip install sphinx_rtd_theme
+
+skip_tags: true
+
+build_script:
+  - cmd: powershell -NoProfile -ExecutionPolicy unrestricted -Command .\build.ps1 -Target "All"
+
+image: Visual Studio 2017
+
+test: off
+
+artifacts:
+  - path: Build\Documentation\*.zip
+
+nuget:
+  account_feed: false
+  project_feed: false
+  disable_publish_on_pr: true
