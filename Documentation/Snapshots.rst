@@ -10,10 +10,10 @@ some of which needs to go through a rigorous
 `update <./EventUpgrade.md>`__ process before they are applied to the
 aggregates.
 
-EventFlow support aggregate snapshots, which is basically a capture of
+EventFlow supports aggregate snapshots, which is basically a capture of
 the entire aggregate state every few events. So instead of loading the
 entire aggregate event history, the latest snapshot is loaded, then
-applied to the aggregate and then the remaining events that wasn't
+applied to the aggregate and then the remaining events that were not
 captured in the snapshot.
 
 To configure an aggregate root to support snapshots, inherit from
@@ -53,8 +53,8 @@ remember
 
 -  Aggregates must not make any assumptions regarding the existence of
    snapshots
--  Aggregates must not assume that if a snapshots are created with
-   increasing aggregate sequence numbers
+-  Aggregates must not assume that snapshots are created with increasing
+   aggregate sequence numbers
 -  Snapshots must be created in such a way, that the represent the
    entire history up to the point of snapshot creation
 
@@ -81,7 +81,7 @@ Upgrading snapshots
 
 As an application grows over time, the data required to be stored within
 a snapshots will change. Either because some become obsolete or merely
-because a better way of storing aggregate state is found. If this
+because a better way of storing the aggregate state is found. If this
 happens, the snapshots persisted in the snapshot store could potentially
 become useless as aggregates are unable to apply them. The easy solution
 would be to make change-by-addition and make sure that the old snapshots
@@ -103,7 +103,7 @@ versions over time.
     }
 
     [SnapshotVersion("user", 2)]
-    public class UserSnapshotV1 : ISnapshot
+    public class UserSnapshotV2 : ISnapshot
     {
       ...
     }
