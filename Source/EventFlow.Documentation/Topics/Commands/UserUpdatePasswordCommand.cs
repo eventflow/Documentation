@@ -1,4 +1,4 @@
-// The MIT License (MIT)
+﻿// The MIT License (MIT)
 // 
 // Copyright (c) 2015-2017 Rasmus Mikkelsen
 // Copyright (c) 2015-2017 eBay Software Foundation
@@ -21,24 +21,23 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Threading;
-using System.Threading.Tasks;
-using EventFlow.Aggregates.ExecutionResults;
 using EventFlow.Commands;
 
-namespace EventFlow.Documentation.GettingStarted
+namespace EventFlow.Documentation.Topics.Commands
 {
-    /// Command handler for our command
-    public class ExampleCommandHandler :
-        CommandHandler<ExampleAggregate, ExampleId, IExecutionResult, ExampleCommand>
+    public class UserUpdatePasswordCommand : Command<UserAggregate, UserId>
     {
-        public override Task<IExecutionResult> ExecuteCommandAsync(
-            ExampleAggregate aggregate,
-            ExampleCommand command,
-            CancellationToken cancellationToken)
+        public Password NewPassword { get; }
+        public Password OldPassword { get; }
+
+        public UserUpdatePasswordCommand(
+            UserId id,
+            Password newPassword,
+            Password oldPassword)
+            : base(id)
         {
-            var executionResult = aggregate.SetMagicNumer(command.MagicNumber);
-            return Task.FromResult(executionResult);
+            NewPassword = newPassword;
+            OldPassword = oldPassword;
         }
     }
 }

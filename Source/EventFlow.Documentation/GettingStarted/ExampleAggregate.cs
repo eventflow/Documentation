@@ -20,10 +20,9 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// 
 
 using EventFlow.Aggregates;
-using EventFlow.Exceptions;
+using EventFlow.Aggregates.ExecutionResults;
 
 namespace EventFlow.Documentation.GettingStarted
 {
@@ -37,12 +36,14 @@ namespace EventFlow.Documentation.GettingStarted
         public ExampleAggregate(ExampleId id) : base(id) { }
 
         // Method invoked by our command
-        public void SetMagicNumer(int magicNumber)
+        public IExecutionResult SetMagicNumer(int magicNumber)
         {
             if (_magicNumber.HasValue)
-                throw DomainError.With("Magic number already set");
+                return ExecutionResult.Failed("Magic number already set");
 
             Emit(new ExampleEvent(magicNumber));
+            
+            return ExecutionResult.Success();
         }
 
         // We apply the event as part of the event sourcing system. EventFlow
