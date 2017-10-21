@@ -20,7 +20,6 @@
 // COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// 
 
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,10 +53,13 @@ namespace EventFlow.Documentation.GettingStarted
 
                 // Resolve the command bus and use it to publish a command
                 var commandBus = resolver.Resolve<ICommandBus>();
-                await commandBus.PublishAsync(
+                var executionResult = await commandBus.PublishAsync(
                     new ExampleCommand(exampleId, magicNumber),
                     CancellationToken.None)
                     .ConfigureAwait(false);
+
+                // Verify that we didn't trigger our domain validation
+                executionResult.IsSuccess.Should().BeTrue();
 
                 // Resolve the query handler and use the built-in query for fetching
                 // read models by identity to get our read model representing the

@@ -9,23 +9,11 @@ operations that you can perform in your domain.
 As an example, one might implement create this command for updating user
 passwords.
 
-.. code-block:: c#
-
-    public class UserUpdatePasswordCommand : Command<UserAggregate, UserId>
-    {
-      public Password NewPassword { get; }
-      public Password OldPassword { get; }
-
-      public UserUpdatePasswordCommand(
-        UserId id,
-        Password newPassword,
-        Password oldPassword)
-        : base(id)
-      {
-        Username = username;
-        Password = password;
-      }
-    }
+.. literalinclude:: ../Source/EventFlow.Documentation/Topics/Commands/UserUpdatePasswordCommand.cs
+  :linenos:
+  :dedent: 4
+  :language: c#
+  :lines: 28-42
 
 Note that the ``Password`` class is merely a value object created to
 hold the password and do basic validation. Read the article regarding
@@ -38,23 +26,36 @@ A command by itself doesn't do anything and will throw an exception if
 published. To make a command work, you need to implement one (and only
 one) command handler which is responsible for invoking the aggregate.
 
+.. literalinclude:: ../Source/EventFlow.Documentation/Topics/Commands/UserUpdatePasswordCommandHandler.cs
+  :linenos:
+  :dedent: 4
+  :language: c#
+  :lines: 31-45
+
+Execution results
+-----------------
+
+If the aggregate detects a domain error an want to abort execution and
+return an error back, execution results are used. EventFlow ships with
+a basic implementation that allows returning a success and failed
+along with a error message as show here.
+
 .. code-block:: c#
 
-    public class UserUpdatePasswordCommandHandler :
-      CommandHandler<UserAggregate, UserId, UserUpdatePasswordCommand>
-    {
-      public override Task ExecuteAsync(
-        UserAggregate aggregate,
-        UserUpdatePasswordCommand command,
-        CancellationToken cancellationToken)
-      {
-        aggregate.UpdatePassword(
-          command.OldPassword,
-          command.NewPassword);
+    ExecutionResult.Success();
+    ExecutionResult.Failed();
+    ExecutionResult.Failed("With some error");
 
-        return Task.FromResult(0);
-      }
-    }
+However, you can create your own custom execution results to allow
+aggregates to e.g. provide detailed validation results, merely
+implement the ``IExecutionResult`` interface and use the type as
+generic generic arguments on the command and command handler.
+
+.. NOTE::
+    While possible, do not use the execution results as a method of reading
+    values from the aggregate, that's what the ``IQueryProcessor`` and
+    read models are for.
+
 
 Ensure idempotency
 ------------------
@@ -96,8 +97,8 @@ like the example blow.
         Password oldPassword)
         : base(id, sourceId)
       {
-        Username = username;
-        Password = password;
+        NewPassword = newPassword;
+        OldPassword = oldPassword;
       }
     }
 
@@ -137,8 +138,8 @@ deterministic GUID to be used as an ``ISourceId``.
         Password oldPassword)
         : base(id)
       {
-        Username = username;
-        Password = password;
+        NewPassword = newPassword;
+        OldPassword = oldPassword;
       }
 
       protected override IEnumerable<byte[]> GetSourceIdComponents()

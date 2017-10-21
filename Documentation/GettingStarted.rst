@@ -75,7 +75,7 @@ All classes create for the example application are prefixed with ``Example``.
   :linenos:
   :dedent: 12
   :language: c#
-  :lines: 41-76
+  :lines: 38-75
 
 The above example publishes the ``ExampleCommand`` to the aggregate with the
 ``exampleId`` identity with the magical value of ``42``. After the command has
@@ -158,14 +158,28 @@ aggregate is loaded. EventFlow has a :ref:`set of different approaches <aggregat
 that you can select from, but in this example we use the `Apply` methods as
 they are the simplest.
 
+.. IMPORTANT::
+    The ``Apply(ExampleEvent)`` is invoked by the ``Emit(...)`` method, so
+    after the event has been emitted, the aggregate state has changed.
+
 The ``ExampleAggregate`` exposes the ``SetMagicNumer(int)`` method, which
 is used to expose the business rules for changing the magic number. If the
 magic number hasn't been set before, the event ``ExampleEvent`` is emitted
 and the aggregate state is mutated.
 
-.. IMPORTANT::
-    The ``Apply(ExampleEvent)`` is invoked by the ``Emit(...)`` method, so
-    after the event has been emitted, the aggregate state has changed.
+If the magic numer was changed, we return a failed ``IExecutionResult`` with
+an error message. Returning a failed execution result will make EventFlow
+disregard any events the aggregate has emitted.
+
+If you need to return something more useful than a ``bool`` in a execution
+result, merely create a new class that implements the ``IExecutionResult``
+interface and specific the type as generic arguments for the command and
+command handler.
+
+.. NOTE::
+    While possible, do not use the execution results as a method of reading
+    values from the aggregate, that's what the ``IQueryProcessor`` and
+    read models are for.
 
 
 Event
@@ -210,7 +224,7 @@ application, they are published using the ``ICommandBus`` as shown here.
   :linenos:
   :dedent: 16
   :language: c#
-  :lines: 57-62
+  :lines: 55-59
 
 In EventFlow commands are simple value objects that merely how the arguments for
 the command execution. All commands implement the ``ICommand<,>`` interface, but
@@ -241,7 +255,9 @@ rather simple, but they could contain more complex logic. How much is up to you.
   :lines: 31-43
 
 The ``ExampleCommandHandler`` in our case here merely invokes the
-``SetMagicNumer`` on the aggregate.
+``SetMagicNumer`` on the aggregate and returns the execution result. Remember, if
+a command handler returns a failed execution result, EventFlow will disregard any
+events the aggregate has emitted.
 
 .. IMPORTANT::
     Everything inside the ``ExecuteAsync(...)`` method of a command handler
