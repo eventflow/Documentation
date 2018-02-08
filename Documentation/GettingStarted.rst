@@ -67,6 +67,8 @@ and a command handler. After we will go through the individual parts created.
     exactly as shown, so if you would like to debug and step through the
     entire flow, checkout the code and execute the ``GettingStartedExample``
     test.
+    
+    https://github.com/eventflow/Documentation/tree/master/Source/EventFlow.Documentation/GettingStarted
 
 
 All classes create for the example application are prefixed with ``Example``.
