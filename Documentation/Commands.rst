@@ -3,11 +3,13 @@
 Commands
 ========
 
-Commands are the basic value objects, or models, that represent write
-operations that you can perform in your domain.
+Commands are the basic value objects, or models, that represent the 
+*write operations* that you can perform in your domain. As described 
+in more detail below a command is the "thing" to be done.  A command 
+handler **does** the "thing".
 
-As an example, one might implement create this command for updating user
-passwords.
+As an example, one might implement this command for updating user
+passwords.  
 
 .. literalinclude:: ../Source/EventFlow.Documentation/Topics/Commands/UserUpdatePasswordCommand.cs
   :linenos:
@@ -35,10 +37,10 @@ one) command handler which is responsible for invoking the aggregate.
 Execution results
 -----------------
 
-If the aggregate detects a domain error an want to abort execution and
-return an error back, execution results are used. EventFlow ships with
-a basic implementation that allows returning a success and failed
-along with a error message as show here.
+If the aggregate detects a domain error and wants to abort execution 
+and return an error back, then execution results are used. EventFlow
+ships with a basic implementation that allows returning *success* or 
+*failed* and optionally an error message as shown here.
 
 .. code-block:: c#
 
@@ -47,9 +49,9 @@ along with a error message as show here.
     ExecutionResult.Failed("With some error");
 
 However, you can create your own custom execution results to allow
-aggregates to e.g. provide detailed validation results, merely
+aggregates to e.g. provide detailed validation results. Merely
 implement the ``IExecutionResult`` interface and use the type as
-generic generic arguments on the command and command handler.
+generic arguments on the command and command handler.
 
 .. NOTE::
     While possible, do not use the execution results as a method of reading
@@ -76,14 +78,16 @@ following simplified scenario.
 
 Handling this is simple, merely ensure that the aggregate is idempotent
 is regards to password changes. But instead of implementing this
-yourself, EventFlow has support for it and its simple to utilize and is
+yourself, EventFlow has support for it that is simple to utilize and is
 done per command.
 
 To use the functionality, merely ensure that commands that represent the
-same operation has the same ``ISourceId`` which implements ``IIdentity``
+same operation have the same ``ISourceId`` which implements ``IIdentity``
 like the example blow.
 
 .. code-block:: c#
+  :linenos:
+  :dedent: 4
 
     public class UserUpdatePasswordCommand : Command<UserAggregate, UserId>
     {
@@ -102,7 +106,7 @@ like the example blow.
       }
     }
 
-Note the use of the other ``protected`` constructor of ``Command<,>``
+Note the use on line 11 of the  ``protected`` constructor of ``Command<,>``
 that takes a ``ISourceId`` in addition to the aggregate root identity.
 
 If a duplicate command is detected, a ``DuplicateOperationException`` is
@@ -121,7 +125,7 @@ somewhat cumbersome, which is why EventFlow provides another base
 command you can use, the ``DistinctCommand<,>``. By using the
 ``DistinctCommand<,>`` you merely have to implement the
 ``GetSourceIdComponents()`` and providing the ``IEnumerable<byte[]>``
-that makes the command unique. The bytes is used to create a
+that makes the command unique. The bytes are used to create a
 deterministic GUID to be used as an ``ISourceId``.
 
 .. code-block:: c#
@@ -155,4 +159,4 @@ the password.
 .. CAUTION::
 
     Don't use the ``GetHashCode()``, as the implementation
-    is different for e.g. ``string`` on 32 bit and 64 bit .NET.
+    can be different on 32 bit and 64 bit .NET (e.g. ``string``).
