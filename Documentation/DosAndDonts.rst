@@ -58,6 +58,6 @@ how EventFlow supports you in this.
 Subscribers and out of order events
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Be very careful if aggregates emits multiple events for a single command,
+Be very careful if aggregates emit multiple events for a single command,
 subscribers will almost certainly
 :ref:`receive these out of order <out-of-order-event-subscribers>`.

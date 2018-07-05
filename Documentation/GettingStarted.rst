@@ -141,8 +141,8 @@ very simple.
 Aggregate
 ---------
 
-Now we'll take a look at the ``ExampleAggregate``. Its rather simple as the
-only thing it can, is apply the magic number once.
+Now we'll take a look at the ``ExampleAggregate``. It is rather simple as the
+only thing it can do, is apply the magic number once.
 
 .. literalinclude:: ../Source/EventFlow.Documentation/GettingStarted/ExampleAggregate.cs
   :linenos:
@@ -155,7 +155,7 @@ details right, but for now the most important thing to note, is that the state
 of the aggregate (updating the ``_magicNumber`` variable) happens in the
 ``Apply(ExampleEvent)`` method. This is the event sourcing part of EventFlow in
 effect. As state changes are only saved as events, mutating the aggregate state
-must happen in such a way that the state changes are replayed the next the
+must happen in such a way that the state changes are replayed the next time the
 aggregate is loaded. EventFlow has a :ref:`set of different approaches <aggregates_applying_events>`
 that you can select from, but in this example we use the `Apply` methods as
 they are the simplest.
@@ -187,7 +187,7 @@ command handler.
 Event
 -----
 
-Next up is the event which represents some that **has** happend in our domain.
+Next up is the event which represents some thing that **has** happened in our domain.
 In this example, its merely that some magic number has been set. Normally
 these events should have a really, really good name and represent something in the
 ubiquitous language for the domain.
@@ -205,12 +205,12 @@ event mentioned. The information is used by EventFlow to tie name and version to
 a specific .NET type.
 
 .. IMPORTANT::
-    Even though the using the ``EventVersion`` attribute is optional, its
+    Even though the using the ``EventVersion`` attribute is optional, it is
     **highly recommended**. EventFlow will infer the information if it isn't
-    provided and thus making it vulnerable to e.g. type renames.
+    provided and thus making it vulnerable to type renames among other things.
 
 .. IMPORTANT::
-    Once have aggregates in your production environment that have emitted
+    Once you have aggregates in your production environment that have emitted
     an event, you should never change the .NET implementation. You can deprecate
     it, but you should never change the type or the data stored in the event
     store.
@@ -228,7 +228,7 @@ application, they are published using the ``ICommandBus`` as shown here.
   :language: c#
   :lines: 55-59
 
-In EventFlow commands are simple value objects that merely how the arguments for
+In EventFlow commands are simple value objects that merely house the arguments for
 the command execution. All commands implement the ``ICommand<,>`` interface, but
 EventFlow provides an easy-to-use base class that you can use.
 
