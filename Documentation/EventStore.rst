@@ -79,7 +79,7 @@ Files
 
 .. IMPORTANT::
 
-    Files event shouldn't be used for production environments, only for tests.
+    The Files event store shouldn't be used for production environments, only for tests.
 
 
 The file based event store is useful if you have a set of events that represents

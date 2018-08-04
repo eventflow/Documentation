@@ -4,10 +4,10 @@ Identity
 ========
 
 The ``Identity<>`` value object provides generic functionality to create
-and validate the IDs of e.g. aggregate roots. Its basically a wrapper
+and validate the IDs of aggregate roots. It is basically a wrapper
 around a ``Guid``.
 
-Lets say we want to create a new identity named ``TestId`` we could do
+Lets say we want to create a new identity named ``TestId``. We could do
 it like this.
 
 .. code-block:: c#
@@ -20,21 +20,21 @@ it like this.
       }
     }
 
--  The identity follow the form ``{class without "Id"}-{guid}`` e.g.
+-  The identity follows the form ``{classname without "Id"}-{guid}`` e.g.
    ``test-c93fdb8c-5c9a-4134-bbcd-87c0644ca34f`` for the above
    ``TestId`` example
 -  The internal ``Guid`` can be generated using one of the following
    methods/properties. Note that you can access the ``Guid`` factories
    directly by accessing the static methods on the ``GuidFactories``
    class
--  ``New``: Uses the standard ``Guid.NewGuid()``
--  ``NewDeterministic(...)``: Creates a name-based ``Guid`` using the
-   algorithm from `RFC 4122 <https://www.ietf.org/rfc/rfc4122.txt>`__
-   §4.3, which allows identities to be generated based on known data,
-   e.g. an user e-mail, i.e., it always returns the same identity for
-   the same arguments
--  ``NewComb()``: Creates a sequential ``Guid`` that can be used to e.g.
-   avoid database fragmentation
+   -  ``New``: Uses the standard ``Guid.NewGuid()``
+   -  ``NewDeterministic(...)``: Creates a name-based ``Guid`` using the
+      algorithm from `RFC 4122 <https://www.ietf.org/rfc/rfc4122.txt>`__
+      §4.3, which allows identities to be generated based on known data,
+      (e.g. an user e-mail). It always returns the same identity for
+      the same arguments
+   -  ``NewComb()``: Creates a sequential ``Guid`` that can be used to
+      avoid database fragmentation
 -  A ``string`` can be tested to see if its a valid identity using the
    static ``bool IsValid(string)`` method
 -  Any validation errors can be gathered using the static
@@ -63,7 +63,7 @@ Here's some examples on we can use our newly created ``TestId``
 
 .. code-block:: c#
 
-    // Creates a new identity every time, but an identity when used in e.g.
+    // Creates a new identity every time, but an identity when used in
     // database indexes, minimizes fragmentation
     var testId = TestId.NewComb()
 

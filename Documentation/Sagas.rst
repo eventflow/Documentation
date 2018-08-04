@@ -3,8 +3,8 @@
 Sagas
 =====
 
-To coordinates messages between bounded contexts and aggregates
-EventFlow provides a simple saga system.
+EventFlow provides a simple saga system to coordinate messages between 
+bounded contexts and aggregates.
 
 -  **Saga identity**
 -  **Saga**
@@ -84,14 +84,14 @@ the ubiquitous language for your domain.
     Even though the method for publishing commands is named
     ``Publish``, the commands are only published to the command bus
     **after** the aggregate has been successfully committed to the event
-    store (just like events). If an unexpected exception is throw by this
+    store (just like events). If an unexpected exception is thrown by this
     command publish, it should be handled by a custom implementation of
     ``ISagaErrorHandler``.
 
 
-The next few events and commands are omitted, but at last the
+The next few events and commands are omitted in this example, but at last the
 ``PaymentAggregate`` emits its ``PaymentAccepted`` event and the saga
-completes and emit the final ``OrderConfirmed`` event.
+completes and emits the final ``OrderConfirmed`` event.
 
 .. code-block:: c#
 

@@ -70,7 +70,7 @@ following simplified scenario.
 2. The user fills in the "change password form"
 3. As user is impatient, or by accident, the user submits the for twice
 4. The first web request completes and the password is changed. However,
-   as the browser is waiting on the first web request, this result is
+   as the browser is waiting on the second web request, this result is
    ignored
 5. The second web request throws a domain error as the "old password"
    doesn't match as the current password has already been changed
@@ -83,7 +83,7 @@ done per command.
 
 To use the functionality, merely ensure that commands that represent the
 same operation have the same ``ISourceId`` which implements ``IIdentity``
-like the example blow.
+like the example below.
 
 .. code-block:: c#
   :linenos:
@@ -114,8 +114,8 @@ thrown. The application could then ignore the exception or report the
 problem to the end user.
 
 The default ``ISourceId`` history size of the aggregate root, is ten.
-But it can be configured using the ``SetSourceIdHistory(...)`` that must
-be called from within the aggregate root constructor.
+But it can be configured using the ``SetSourceIdHistory(...)`` method 
+in the aggregate root constructor.
 
 Easier ISourceId calculation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
