@@ -24,6 +24,22 @@ The above line does configures several important defaults
 - And lastly, default implementations of all the internal parts of EventFlow
 
 .. IMPORTANT::
+    If you're using ASP.NET Core, you should install the ***EventFlow.AspNetCore*** package and invoke
+    `AddAspNetCoreMetadataProviders` in Startup.
+
+.. code-block:: c#
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddEventFlow(ef =>
+        {
+            ef.AddDefaults(typeof(Startup).Assembly);
+            ef.AddAspNetCoreMetadataProviders();
+        });
+    }
+
+
+.. IMPORTANT::
     Before using EventFlow in a production environment, you should configure an
     alternative **event store**, an alternative **IoC container** and another
     **logger** that sends log messages to your production log store.
