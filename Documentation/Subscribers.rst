@@ -3,16 +3,16 @@
 Subscribers
 ============
 
-Whenever your application needs to act when a specific event is emitted
-from your domain you create a class that implement one of the following
-two interfaces which is.
+Whenever your application needs to perform an action when a specific 
+event is emitted from your domain you create a class that implementations
+one of the following two interfaces:
 
 -  ``ISubscribeSynchronousTo<TAggregate,TIdentity,TEvent>``: Executed
-   synchronous
+   synchronously
 -  ``ISubscribeAsynchronousTo<TAggregate,TIdentity,TEvent>``: Executed
-   asynchronous
+   asynchronously
 
-Any implemented subscribers needs to be registered to this interface,
+Any subscribers that you implement need to be registered to this interface,
 either using ``AddSubscriber(...)``, ``AddSubscribers(...)`` or
 ``AddDefaults(...)`` during initialization. If you have configured a
 custom IoC container, you can register the implementations using it
@@ -35,7 +35,7 @@ Synchronous subscribers in EventFlow are executed one at a time for each
 emitted domain event in order. This e.g. guarantees that all subscribers
 have been executed when the ``ICommandBus.PublishAsync(...)`` returns.
 
-The ``ISubscribeSynchronousTo<,,>`` is shown here.
+The ``ISubscribeSynchronousTo<,,>`` interface is shown here.
 
 .. code-block:: c#
 
@@ -58,7 +58,7 @@ As synchronous subscribers are by their very nature executed
 synchronously, emitting multiple events from an aggregate and letting
 subscribers publish new commands based on this can however lead to some
 unexpected behavior as "innermost" subscribers will be executed before
-first.
+the next "outer" event is handled by the subscriber.
 
 1. Aggregate emits events ``Event 1`` and ``Event 2``
 2. Subscriber handles ``Event 1`` and publishes a command that results
@@ -68,8 +68,8 @@ first.
 
 In the above example the subscriber will handle the events in the
 following order ``Event 1``, ``Event 3`` and then ``Event 2``. While
-this *could* occur in a distributed system or executing subscribers on
-different threads, its a certainty when using synchronous subscribers.
+this *could* occur in a distributed system or when executing subscribers on
+different threads, it is a certainty when using synchronous subscribers.
 
 
 Exceptions swallowed by default
@@ -78,10 +78,10 @@ Exceptions swallowed by default
 By default any exceptions thrown by a subscriber are **swallowed**
 by EventFlow after it has been logged as an error. Depending on the
 application this might be the preferred behavior, but in some cases
-it isn't. If subscriber exception should be thrown, and thus allowing
+it isn't. If a subscriber exception should be thrown, and thus allowing
 them to be caught in e.g. command handlers, the behaivor can be disabled
-by setting the ``ThrowSubscriberExceptions`` to ``true`` like illustrated
-here.
+by setting the ``ThrowSubscriberExceptions`` to ``true`` as illustrated
+here:
 
 .. code-block:: c#
 
@@ -111,8 +111,9 @@ Asynchronous subscribers in EventFlow are executed using a scheduled job.
 
 .. IMPORTANT::
     As asynchronous subscribers are executed using a job, its important
-    to configure proper job scheduling by e.g. using the
-    ``EventFlow.Hangfire`` NuGet package.
+    to configure proper job scheduling. The ``EventFlow.Hangfire`` NuGet 
+    package integrates with the 'HangFire Job Scheduler <https://www.hangfire.io>, 
+    and provides a usable solution to this requirement.
 
 The ``ISubscribeAsynchronousTo<,,>`` is shown here and is, besides its
 name, identical to its synchronous counterpart.
@@ -181,9 +182,9 @@ Which will be the following for an event named ``CreateUser`` version
 Note the lowercasing and adding of ``-`` whenever there's a capital
 letter.
 
-All the above is the default behavior, if you don't like it replace e.g.
-the service ``IRabbitMqMessageFactory`` to customize what routing key or
-exchange to use. Have a look at how
+All the above is the default behavior, if you don't like it replace the 
+registered message factory service ``IRabbitMqMessageFactory`` to 
+customize what routing key or exchange to use. Have a look at how
 `EventFlow <https://github.com/rasmus/EventFlow>`__ has done its
 implementation to get started.
 

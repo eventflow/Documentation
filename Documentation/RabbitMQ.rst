@@ -3,7 +3,7 @@
 RabbitMQ
 ========
 
-To setup EventFlow RabbitMQ_ integration, install the NuGet package
+To setup EventFlow's RabbitMQ_ integration, install the NuGet package
 ``EventFlow.RabbitMQ`` and add this to your EventFlow setup.
 
 .. code-block:: c#

@@ -178,7 +178,7 @@ is used to store the read model version in.
 
 .. IMPORTANT::
 
-    EventFlow expect the read model to exist, and thus any
+    EventFlow expects the read model to exist, and thus any
     maintenance of the database schema for the read models must be handled
     before EventFlow is initialized. Or, at least before the read models are
     used in EventFlow.

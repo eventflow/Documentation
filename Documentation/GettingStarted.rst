@@ -50,7 +50,7 @@ The above line does configures several important defaults
     - :ref:`Snapshots <snapshots>`
 
 
-To start using EventFlow, a domain must be configure which consists of the
+To start using EventFlow, a domain must be configured which consists of the
 following parts
 
 - :ref:`Aggregate <aggregates>`
