@@ -90,7 +90,7 @@ each nickname we add via the event like this.
       }
     }
 
-And then use a read model similar to this that represent each nickname.
+And then use a read model similar to this that represents each nickname.
 
 .. code-block:: c#
 
@@ -162,7 +162,7 @@ as the generic argument.
       .CreateResolver();
 
 By convention, EventFlow uses the table named ``ReadModel-[CLASS NAME]``
-as the table to store the read models rows in. If you need to change
+as the table to store the read model rows in. If you need to change
 this, use the ``Table`` from the
 ``System.ComponentModel.DataAnnotations.Schema`` namespace. So in the
 above example, the read model ``UserReadModel`` would be stored in a
@@ -172,9 +172,9 @@ To allow EventFlow to find the read models stored, a single column is
 required to have the ``MsSqlReadModelIdentityColumn`` attribute. This
 will be used to store the read model ID.
 
-You should also create a ``int`` column that has the
+You should also create an ``int`` column that has the
 ``MsSqlReadModelVersionColumn`` attribute to tell EventFlow which column
-is used to store the read model version in.
+the read model version is stored in.
 
 .. IMPORTANT::
 
@@ -206,7 +206,7 @@ argument.
       ...
       .CreateResolver();
 
-Overloads of ``ConfigureElasticsearch(...)`` is available for
+Overloads of ``ConfigureElasticsearch(...)`` are available for
 alternative Elasticsearch configurations.
 
 .. IMPORTANT::
@@ -215,9 +215,9 @@ alternative Elasticsearch configurations.
     *before* using the read model in EventFlow.
 
 
-If EventFlow is requested to *purge* a specific read model, it does it
-by deleting the index. Thus make sure to create one separate index per
-read model.
+If EventFlow receives a request to *purge* a specific read model, it does it
+by deleting the index. This means that a separate index should be created for
+each read model.
 
 If you want to control the index a specific read model is stored in,
 create an implementation of ``IReadModelDescriptionProvider`` and

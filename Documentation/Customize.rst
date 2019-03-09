@@ -4,7 +4,7 @@ Customize
 If you are looking for how to configure EventFlow, look at the
 :ref:`configuration <configuration>` documentation.
 
-When ever EventFlow doesn't meet your needs, e.g. if you want to collect
+Whenever EventFlow doesn't meet your needs, e.g. if you want to collect
 statistics on each command execution time, you can customize EventFlow.
 
 Basically EventFlow relies on an IoC container to allow developers to
@@ -26,7 +26,7 @@ Decorating implementations
 --------------------------
 
 In the case of collecting statistics, you might want to wrap the
-existing ``ICommandBus`` with a decorator class the can collect
+existing ``ICommandBus`` with a decorator class that can collect
 statistics on command execution times.
 
 .. code-block:: c#

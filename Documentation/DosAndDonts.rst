@@ -25,8 +25,8 @@ Produce clean JSON
 ^^^^^^^^^^^^^^^^^^
 
 Make sure that when your aggregate events are JSON serialized, they
-produce clean JSON as it makes it easier to work with and enable you to
-easier deserialize the events in the future.
+produce clean JSON as it makes it easier to work with and enables
+easier deserialization of events in the future.
 
 -  No type information
 -  No hints of value objects (see :ref:`value objects <value-objects>`)
@@ -45,12 +45,12 @@ event.
 Keep old event types
 ^^^^^^^^^^^^^^^^^^^^
 
-Keep in mind, that you need to keep the event types in your code for as
-long as these events are in the event source, which in most cases are
+Keep in mind that you need to keep the event types in your code for as
+long as these events are in the event source, which in most cases is
 *forever* as storage is cheap and information, i.e., your domain events,
 are expensive.
 
-However, you should still clean your code, have a look at how you can
+However, you should still clean your code. Have a look at how you can
 :ref:`upgrade and version your events <event-upgrade>` for details on
 how EventFlow supports you in this.
 

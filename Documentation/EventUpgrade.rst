@@ -3,7 +3,7 @@
 Event upgrade
 =============
 
-At some point you might find the need to replace a event with zero or
+At some point you might find the need to replace an event with zero or
 more events. Some use cases might be
 
 -  A previous application version introduced a domain error in the form
@@ -15,20 +15,20 @@ EventFlow event upgraders are invoked whenever the event stream is
 loaded from the event store. Each event upgrader receives the entire
 event stream one event at a time.
 
-A new instance of a event upgrader is created each time an aggregate is
+A new instance of an event upgrader is created each time an aggregate is
 loaded. This enables you to store information from previous events on
 the upgrader instance to be used later, e.g. to determine an action to
-take on a event or provide additional information for a new event.
+take on a event or to provide additional information for a new event.
 
 Note that the *ordering* of event upgraders is important as you might
-implement two upgraders, one upgrade a event from V1 to V2 and then
+implement two upgraders, one to upgrade an event from V1 to V2 and then
 another upgrading V2 to V3. EventFlow orders the event upgraders by name
 before starting the event upgrade.
 
 .. CAUTION::
 
     Be careful when working with event upgraders that return zero or more
-    than one event, as this have an influence on the aggregate version and
+    than one event, as this has an influence on the aggregate version and
     you need to make sure that the aggregate sequence number on upgraded
     events are valid in regard to the aggregate history.
 
@@ -36,7 +36,7 @@ before starting the event upgrade.
 Example - removing a damaged event
 ----------------------------------
 
-To remove an event, simply check and only return the event if its no the
+To remove an event, simply check and only return the event if its not the
 event you want to remove.
 
 .. code-block:: c#
@@ -57,8 +57,8 @@ event you want to remove.
 Example - replace event
 -----------------------
 
-To one event to another, you should use the
-``IDomainEventFactory.Upgrade`` to help migrate meta data and create the
+To upgrade one event to another, you should use the
+``IDomainEventFactory.Upgrade`` to help migrate metadata and create the
 new event.
 
 .. code-block:: c#

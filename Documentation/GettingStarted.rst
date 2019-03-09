@@ -3,7 +3,7 @@
 Getting started
 ===============
 
-Initializing EventFlow always start with an ``EventFlowOptions.New`` as this
+Initializing EventFlow always starts with an ``EventFlowOptions.New`` as this
 performs the initial bootstrap and starts the fluent configuration API. The
 very minimum initialization of EventFlow can be done in a single line, but
 wouldn't serve any purpose as no domain has been configured.
@@ -59,7 +59,7 @@ following parts
 - :ref:`Commands and command handlers <commands>` (optional, but highly recommended)
 
 In addition to the above, EventFlow provides several optional features. Whether
-or not these features are utilized, depends on the application in which
+or not these features are utilized depends on the application in which
 EventFlow is used.
 
 - :ref:`Read models <read-stores>`
@@ -74,9 +74,10 @@ EventFlow is used.
 Example application
 -------------------
 
-To get started, we start with our entire example application which consists of
-one of each of the required parts: aggregate, event, aggregate identity, command
-and a command handler. After we will go through the individual parts created.
+
+The example application includes one of each of the required parts: aggregate,
+event, aggregate identity, command and a command handler. Further down we will
+go through each of the individual parts.
 
 .. NOTE::
     The example code provided here is located within the EventFlow code base
@@ -111,7 +112,7 @@ stored in the in-memory event store. The JSON for the event is shown here.
 
 The event data itself is straightforward as it is merely the JSON serialization of
 an instance of the type ``ExampleEvent`` with the value we defined. A bit more
-interesting is the metadata that EventFlow stores along the event, which is
+interesting is the metadata that EventFlow stores alongside the event, which is
 used by the EventFlow event store.
 
 .. code-block:: json
@@ -129,22 +130,22 @@ used by the EventFlow event store.
       "event_version": "1"
     }
 
-All the built-in meta data is available on each instance of ``IDomainEvent<,,>``,
-which is accessible from event handlers for e.g. read models or subscribers. It
-also possible create your own :ref:`meta data providers <metadata-providers-custom>`
+All the built-in metadata is available on each instance of ``IDomainEvent<,,>``,
+which is accessible from event handlers for e.g. read models or subscribers. It is
+also possible to create your own :ref:`metadata providers <metadata-providers-custom>`
 or add additional EventFlow built-in providers as needed.
 
 
 Aggregate identity
 ------------------
 
-The aggregate ID is in EventFlow represented as a value objected that inherits
+The aggregate ID in EventFlow is represented as a value object that inherits
 from the ``IIdentity`` interface. You can provide your own implementation, but
 EventFlow provides a convenient implementation that will suit most needs.  Be
-sure to read the read the section about the :ref:`Identity\<\> <identity>` class
-to get details on how to use it.
+sure to read the section about the :ref:`Identity\<\> <identity>` class
+for details on how to use it.
 
-For our example application we use the built-in class making the implementation
+For our example application we use the built-in class, which makes the implementation
 very simple.
 
 .. literalinclude:: ../Source/EventFlow.Documentation/GettingStarted/ExampleId.cs
@@ -158,7 +159,7 @@ Aggregate
 ---------
 
 Now we'll take a look at the ``ExampleAggregate``. It is rather simple as the
-only thing it can do, is apply the magic number once.
+only thing it can do is apply the magic number once.
 
 .. literalinclude:: ../Source/EventFlow.Documentation/GettingStarted/ExampleAggregate.cs
   :linenos:
@@ -167,13 +168,13 @@ only thing it can do, is apply the magic number once.
   :lines: 30-55
 
 Be sure to read the section on :ref:`aggregates <aggregates>` to get all the
-details right, but for now the most important thing to note, is that the state
+details right. For now the most important thing to note, is that the state
 of the aggregate (updating the ``_magicNumber`` variable) happens in the
 ``Apply(ExampleEvent)`` method. This is the event sourcing part of EventFlow in
 effect. As state changes are only saved as events, mutating the aggregate state
 must happen in such a way that the state changes are replayed the next time the
 aggregate is loaded. EventFlow has a :ref:`set of different approaches <aggregates_applying_events>`
-that you can select from, but in this example we use the `Apply` methods as
+that you can select from. In this example we use the `Apply` methods as
 they are the simplest.
 
 .. IMPORTANT::
@@ -189,7 +190,7 @@ If the magic numer was changed, we return a failed ``IExecutionResult`` with
 an error message. Returning a failed execution result will make EventFlow
 disregard any events the aggregate has emitted.
 
-If you need to return something more useful than a ``bool`` in a execution
+If you need to return something more useful than a ``bool`` in an execution
 result, merely create a new class that implements the ``IExecutionResult``
 interface and specific the type as generic arguments for the command and
 command handler.
@@ -203,8 +204,8 @@ command handler.
 Event
 -----
 
-Next up is the event which represents some thing that **has** happened in our domain.
-In this example, its merely that some magic number has been set. Normally
+Next up is the event which represents something that **has** happened in our domain.
+In this example, it's merely that some magic number has been set. Normally
 these events should have a really, really good name and represent something in the
 ubiquitous language for the domain.
 
@@ -216,14 +217,14 @@ ubiquitous language for the domain.
 
 We have applied the ``[EventVersion("example", 1)]`` to our event, marking it
 as the ``example`` event version ``1``, which directly corresponds to the
-``event_name`` and ``event_version`` from the meta data store along side the
-event mentioned. The information is used by EventFlow to tie name and version to
+``event_name`` and ``event_version`` from the metadata store along side the
+event mentioned. The information is used by EventFlow to tie the name and version to
 a specific .NET type.
 
 .. IMPORTANT::
     Even though the using the ``EventVersion`` attribute is optional, it is
     **highly recommended**. EventFlow will infer the information if it isn't
-    provided and thus making it vulnerable to type renames among other things.
+    provided, thus making it vulnerable to type renames among other things.
 
 .. IMPORTANT::
     Once you have aggregates in your production environment that have emitted
@@ -294,8 +295,8 @@ that :ref:`read models <read-stores>` are used. Loading aggregates from the
 event store takes time and its impossible to query for e.g. aggregates that have
 a specific value in its state.
 
-In our example we merely use the built-in in-memory read model store. Its useful
-in many cases, e.g. executing automated domain tests in an CI build.
+In our example we merely use the built-in in-memory read model store. It is useful
+in many cases, e.g. executing automated domain tests in a CI build.
 
 .. literalinclude:: ../Source/EventFlow.Documentation/GettingStarted/ExampleReadModel.cs
   :linenos:
@@ -304,9 +305,9 @@ in many cases, e.g. executing automated domain tests in an CI build.
   :lines: 30-43
 
 Notice the ``IDomainEvent<ExampleAggrenate, ExampleId, ExampleEvent> domainEvent``
-argument, its merely a wrapper around the specific event we implemented
+argument. It's merely a wrapper around the specific event we implemented
 earlier. The ``IDomainEvent<,,>`` provides additional information, e.g. any
-meta data store along side the event.
+metadata stored alongside the event.
 
 The main difference between the event instance emitted in the aggregate and the
 instance wrapped here, is that the event has been committed to the event store.

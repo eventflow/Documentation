@@ -26,10 +26,10 @@ class that inherits from ``Specification<T>``.
 
 Note that instead of simply returning a ``bool`` to indicate whether or not the
 specification is satisfied, this implementation requires a reason (or reasons)
-why **not** the specification is satisfied.
+why the specification is **not** satisfied.
 
 The ``ISpecification<T>`` interface has two methods defined, the traditional
-``IsSatisfiedBy`` and the addition ``WhyIsNotSatisfiedBy``, which returns an
+``IsSatisfiedBy`` as well as ``WhyIsNotSatisfiedBy``, which returns an
 empty enumerable if the specification was indeed satisfied.
 
 .. code-block:: c#
@@ -42,7 +42,7 @@ empty enumerable if the specification was indeed satisfied.
     }
 
 
-As specifications really become powerful when they are combined, EventFlow also
+Specifications really become powerful when they are combined. EventFlow also
 ships with a series of extension methods for the ``ISpecification<T>`` interface
 that allows easy combination of implemented specifications.
 

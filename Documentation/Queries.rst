@@ -78,4 +78,4 @@ Queries shipped with EventFlow
    read model use using the EventFlow options for that store
 -  ``InMemoryQuery<TReadModel>``: Takes a ``Predicate<TReadModel>`` and
    returns ``IEnumerable<TReadModel>``, making it possible to search all
-   your in-memory read models based on any predicate
+   of your in-memory read models based on any predicate
