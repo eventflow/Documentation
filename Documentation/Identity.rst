@@ -46,7 +46,7 @@ it like this.
     as it is significant when the identity type is deserialized.
 
 
-Here's some examples on we can use our newly created ``TestId``
+Here are some examples of how we can use our newly created ``TestId``
 
 .. code-block:: c#
 

@@ -21,7 +21,7 @@ Note that the ``Password`` class is merely a value object created to
 hold the password and do basic validation. Read the article regarding
 :ref:`value objects <value-objects>` for more information. Also, you
 don't have to use the default EventFlow ``Command<,>`` implementation,
-you can create your own, it merely have to implement the ``ICommand<,>``
+you can create your own, it merely has to implement the ``ICommand<,>``
 interface.
 
 A command by itself doesn't do anything and will throw an exception if
@@ -68,7 +68,7 @@ following simplified scenario.
 
 1. The user wants to change his password
 2. The user fills in the "change password form"
-3. As user is impatient, or by accident, the user submits the for twice
+3. The user submits the for twice, either accidentally or impatiently
 4. The first web request completes and the password is changed. However,
    as the browser is waiting on the second web request, this result is
    ignored
@@ -77,7 +77,7 @@ following simplified scenario.
 6. The user is presented with a error on the web page
 
 Handling this is simple, merely ensure that the aggregate is idempotent
-is regards to password changes. But instead of implementing this
+in regards to password changes. But instead of implementing this
 yourself, EventFlow has support for it that is simple to utilize and is
 done per command.
 

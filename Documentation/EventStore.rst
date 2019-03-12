@@ -3,7 +3,7 @@
 Event stores
 ============
 
-By default EventFlow uses a in-memory event store. But EventFlow provides
+By default EventFlow uses an in-memory event store. But EventFlow provides
 support for alternatives.
 
 - :ref:`In-memory <eventstore-inmemory>` (for test)
@@ -21,7 +21,7 @@ In-memory
     In-memory event store shouldn't be used for production environments, only for tests.
 
 
-Using the in-memory event store is easy as its enabled by default, no need
+Using the in-memory event store is easy as it's enabled by default, no need
 to do anything.
 
 
@@ -33,7 +33,7 @@ MSSQL event store
 See :ref:`MSSQL setup <setup-mssql>` for details on how to get started
 using Microsoft SQL Server in EventFlow.
 
-Configure EventFlow to use MSSQL as event store, simply add the
+To configure EventFlow to use MSSQL as the event store, simply add the
 ``UseMssqlEventStore()`` as shown here.
 
 .. code-block:: c#

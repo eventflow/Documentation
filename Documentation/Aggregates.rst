@@ -3,7 +3,7 @@
 Aggregates
 ==========
 
-Initially before you can create a aggregate, you need to create its
+Initially before you can create an aggregate, you need to create its
 identity. You can create your own implementation by implementing the
 ``IIdentity`` interface or you can use a base class ``Identity<>`` that
 EventFlow provides, like this.
@@ -21,7 +21,7 @@ The :ref:`Identity\<\> <identity>` value object
 provides generic functionality to create and validate aggregate root
 IDs. Please read the documentation regarding the bundled ``Identity<>``
 type as it provides several useful features, e.g. several different
-schemes for ID generation, one that minimizes MSSQL database
+schemes for ID generation, including one that minimizes MSSQL database
 fragmentation.
 
 Next, to create a new aggregate, simply inherit from
@@ -84,7 +84,7 @@ uncommitted events.
       Emit(new PingEvent(data))
     }
 
-Remember not to do any changes to the aggregate with the these methods,
+Remember not to make any changes to the aggregate with these methods,
 as the state is only stored through events.
 
 
@@ -95,14 +95,14 @@ Applying events
 
 Currently EventFlow has three methods of applying events to the
 aggregate when emitted or loaded from the event store. Which you choose
-is up to you, implementing ``IEmit<SomeEvent>`` is the most convenient,
+is up to you. Implementing ``IEmit<SomeEvent>`` is the most convenient,
 but will expose public ``Apply`` methods.
 
--  Create a method called ``Apply`` that takes the event as argument. To
+-  Create a method called ``Apply`` that takes the event as an argument. To
    get the method signature right, implement the ``IEmit<SomeEvent>`` on
    your aggregate. This is the default fallback and you will get an
    exception if no other strategies are configured. Although you *can*
-   implement ``IEmit<SomeEvent>``, its optional, the ``Apply`` methods
+   implement ``IEmit<SomeEvent>``, it's optional. The ``Apply`` methods
    can be ``protected`` or ``private``
 -  Create a state object by inheriting from ``AggregateState<,,>`` and
    registering using the protected ``Register(...)`` in the aggregate

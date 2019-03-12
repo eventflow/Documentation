@@ -55,7 +55,7 @@ remember
    snapshots
 -  Aggregates must not assume that snapshots are created with increasing
    aggregate sequence numbers
--  Snapshots must be created in such a way, that the represent the
+-  Snapshots must be created in such a way, that they represent the
    entire history up to the point of snapshot creation
 
 Snapshot strategy
@@ -80,18 +80,18 @@ Upgrading snapshots
 -------------------
 
 As an application grows over time, the data required to be stored within
-a snapshots will change. Either because some become obsolete or merely
+a snapshot will change. Either because some become obsolete or merely
 because a better way of storing the aggregate state is found. If this
 happens, the snapshots persisted in the snapshot store could potentially
 become useless as aggregates are unable to apply them. The easy solution
 would be to make change-by-addition and make sure that the old snapshots
-can be desterilized into the new version.
+can be deserialized into the new version.
 
 EventFlow provides an alternative solution, which is basically allowing
 developers to upgrade snapshots similar to how `events are
 upgraded <./EventUpgrade.md>`__.
 
-Lets say we have an application that has developed three snapshots
+Lets say we have an application that has developed three snapshot
 versions over time.
 
 .. code-block:: c#
@@ -161,7 +161,7 @@ EventFlow.
       ...
       .CreateResolver();
 
-Now, when ever a snapshot is loaded from the snapshot store, its
+Now, whenever a snapshot is loaded from the snapshot store, it is
 automatically upgraded to the latest version and the aggregate only
 needs to concern itself with the latest version.
 
@@ -175,7 +175,7 @@ Null (or none)
 ~~~~~~~~~~~~~~
 
 The default implementation used by EventFlow does absolutely nothing
-besides logging a warning if used. It exist only to help developers to
+besides logging a warning if used. It exists only to help developers to
 select a proper snapshot store. Making in-memory the default
 implementation could present problems if snapshots were configured, but
 the snapshot store configuration forgotten.

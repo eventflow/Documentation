@@ -3,14 +3,14 @@
 Event serialization and value objects
 =====================================
 
-One of the important parts the creating a event sourced application, is
-to ensure that you always can read your event streams. It seems simple
-enough, but it is a problem, especially for with large applications that
+One of the important parts of creating an event sourced application is
+to ensure that you can always read your event streams. It seems simple
+enough, but it is a problem, especially for large applications that
 undergo refactoring or domain changes.
 
 The basic idea is to store events in a structure that's easy to access
 and migrate if the need should arise. EventFlow, like many other event
-sourced systems, stores its event using JSON.
+sourced systems, stores its events using JSON.
 
 Making pretty and clean JSON
 ----------------------------
@@ -71,9 +71,9 @@ This doesn't look very good. First, that extra property doesn't make it
 easier to read and it takes up more space when serializing and
 transmitting the event.
 
-In addition, if you use the value object on a web API, people using the
-API will need to wrap the properties in their DTOs in a similarly. What
-we would like is to have our serialized event to look like this instead
+In addition, if you use the value object in a web API, people using the
+API will need to wrap the properties in their DTOs in a similat way. What
+we would like is to modify our serialized event to look like this instead
 and still use the value object in our events.
 
 .. code:: json

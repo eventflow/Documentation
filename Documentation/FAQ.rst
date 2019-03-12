@@ -39,13 +39,13 @@ Short answer, you shouldn't need it. But Mike has a way better answer:
     on proper domain design. > `Mike
     Mogosanu <http://blog.sapiensworks.com/post/2014/06/04/Unit-Of-Work-is-the-new-Singleton.aspx/>`__
 
-If your case falls within the 1% case, write an decorator for the
+If your case falls within the 1% case, write a decorator for the
 ``ICommandBus`` that starts a transaction, use MSSQL as event store and
 make sure your read models are stored in MSSQL as well.
 
 
-Why are subscribers are receiving events out of order?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Why are subscribers receiving events out of order?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It might be your aggregates are emitting multiple events. Read about
+It might be that your aggregates are emitting multiple events. Read about
 :ref:`subscribers and out of order events <out-of-order-event-subscribers>`.

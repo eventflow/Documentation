@@ -4,7 +4,7 @@ Subscribers
 ============
 
 Whenever your application needs to perform an action when a specific 
-event is emitted from your domain you create a class that implementations
+event is emitted from your domain, you create a class that implements
 one of the following two interfaces:
 
 -  ``ISubscribeSynchronousTo<TAggregate,TIdentity,TEvent>``: Executed
@@ -12,8 +12,8 @@ one of the following two interfaces:
 -  ``ISubscribeAsynchronousTo<TAggregate,TIdentity,TEvent>``: Executed
    asynchronously
 
-Any subscribers that you implement need to be registered to this interface,
-either using ``AddSubscriber(...)``, ``AddSubscribers(...)`` or
+Any subscribers that you implement need to be registered to this interface
+using either ``AddSubscriber(...)``, ``AddSubscribers(...)`` or
 ``AddDefaults(...)`` during initialization. If you have configured a
 custom IoC container, you can register the implementations using it
 instead.
@@ -56,7 +56,7 @@ Out of order events
 
 As synchronous subscribers are by their very nature executed
 synchronously, emitting multiple events from an aggregate and letting
-subscribers publish new commands based on this can however lead to some
+subscribers publish new commands based on this can lead to some
 unexpected behavior as "innermost" subscribers will be executed before
 the next "outer" event is handled by the subscriber.
 
@@ -110,7 +110,7 @@ Asynchronous subscribers in EventFlow are executed using a scheduled job.
 
 
 .. IMPORTANT::
-    As asynchronous subscribers are executed using a job, its important
+    Since asynchronous subscribers are executed using a job, its important
     to configure proper job scheduling. The ``EventFlow.Hangfire`` NuGet 
     package integrates with the 'HangFire Job Scheduler <https://www.hangfire.io>, 
     and provides a usable solution to this requirement.
@@ -165,7 +165,7 @@ See :ref:`RabbitMQ setup <setup-rabbitmq>` for details on how to get
 started using RabbitMQ_.
 
 After RabbitMQ has been configured, all domain events are published
-to a exchange named ``eventflow`` with routing keys in the following
+to an exchange named ``eventflow`` with routing keys in the following
 format.
 
 ::
@@ -182,7 +182,7 @@ Which will be the following for an event named ``CreateUser`` version
 Note the lowercasing and adding of ``-`` whenever there's a capital
 letter.
 
-All the above is the default behavior, if you don't like it replace the 
+All the above is the default behavior. If you don't like it, replace the 
 registered message factory service ``IRabbitMqMessageFactory`` to 
 customize what routing key or exchange to use. Have a look at how
 `EventFlow <https://github.com/rasmus/EventFlow>`__ has done its

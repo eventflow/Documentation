@@ -6,7 +6,7 @@ Metadata
 Metadata is all the "additional" information that resides with a emitted
 event, some of which is required information.
 
-In EventFlow metadata is merely a ``IEnumerable`` of
+In EventFlow metadata is merely an ``IEnumerable`` of
 ``KeyValuePair<string,string>`` for which each is a metadata entry.
 
 Out of the box these metadata keys are added to each aggregate event.
@@ -56,8 +56,8 @@ EventFlow.Owin
 
 -  **AddRequestHeadersMetadataProvider**
 -  ``request_header[HEADER]`` - Adds all headers from the OWIN request
-   as metadata, each as a separate entry for which ``HEADER`` in the is
-   replace with the name of the header. E.g. the
+   as metadata, each as a separate entry for which ``HEADER`` is
+   replaced with the name of the header. E.g. the
    ``request_header[Connection]`` might contain the value
    ``Keep-Alive``.
 -  **AddUriMetadataProvider**
@@ -69,7 +69,7 @@ EventFlow.Owin
    balancer in front of your application, then the request IP is not the
    real user address, but the load balancer should send the user IP as a
    header.
--  ``user_host_address_source_header`` - The header for of which the
+-  ``user_host_address_source_header`` - The header from which the
    user host address was taken.
 -  ``remote_ip_address`` - The remote IP address. Note that this might
    be the IP address of your load balancer.

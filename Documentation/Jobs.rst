@@ -3,9 +3,9 @@
 Jobs
 ====
 
-A job is basically a task that you either don't want to execute in the
-current context, on the current server or execute at a later time.
-EventFlow provides basic functionality for jobs.
+A job is basically a task that you want to execute outside of the
+current context, on another server or at a later time. EventFlow
+provides basic functionality for jobs.
 
 There are areas where you might find jobs very useful, here are some
 examples
@@ -74,8 +74,8 @@ Here's an example of a job implementing ``IJob``
 Note that the ``JobVersion`` attribute specifies the job name and
 version to EventFlow and this is how EventFlow distinguishes between the
 different job types. This makes it possible for you to reorder your
-code, even rename the job type, as long as you keep the same attribute
-values its considered the same job in EventFlow. If the attribute is
+code, even rename the job type. As long as you keep the same attribute
+values it is considered the same job in EventFlow. If the attribute is
 omitted, the name will be the type name and version will be ``1``.
 
 Here's how the job is registered in EventFlow.
