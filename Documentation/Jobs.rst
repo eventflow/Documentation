@@ -27,19 +27,18 @@ In the above example the ``SendEmailCommand`` command will be published
 in seven days.
 
 
-Be careful when using jobs
---------------------------
+.. IMPORTANT::
 
-When working with jobs, you should be aware of the following
+    When working with jobs, you should be aware of the following
 
--  The default implementation does executes the job *now*, i.e., in the
-   current context. To get another behavior, install e.g.
-   ``EventFlow.Hangfire`` to get support for scheduled jobs. Read below
-   for details on how to configure Hangfire
--  Your jobs should serialize to JSON properly, see the section on
-   `value objects <./ValueObjects.md>`__ for more information
--  If you use the provided ``PublishCommandJob``, make sure that your
-   commands serialize properly as well
+    -  The default implementation does executes the job *now*, i.e., in the
+      current context. To get another behavior, install e.g.
+      ``EventFlow.Hangfire`` to get support for scheduled jobs. Read below
+      for details on how to configure Hangfire
+    -  Your jobs should serialize to JSON properly, see the section on
+      `value objects <./ValueObjects.md>`__ for more information
+    -  If you use the provided ``PublishCommandJob``, make sure that your
+      commands serialize properly as well
 
 
 Create your own jobs
@@ -70,9 +69,6 @@ Here's an example of a job implementing ``IJob``
         log.Debug(Message);
       }
     }
-
-.. IMPORTANT::
-    Your jobs should (de)serialize to JSON properly
 
 Note that the ``JobVersion`` attribute specifies the job name and
 version to EventFlow and this is how EventFlow distinguishes between the
