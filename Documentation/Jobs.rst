@@ -71,6 +71,9 @@ Here's an example of a job implementing ``IJob``
       }
     }
 
+.. IMPORTANT::
+    Your jobs should (de)serialize to JSON properly
+
 Note that the ``JobVersion`` attribute specifies the job name and
 version to EventFlow and this is how EventFlow distinguishes between the
 different job types. This makes it possible for you to reorder your
