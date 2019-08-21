@@ -22,7 +22,7 @@ container.
 
     var containerBuilder = new ContainerBuilder();
 
-    var container = EventFlowOptions.With
+    var container = EventFlowOptions.New
       .UseAutofacContainerBuilder(containerBuilder) // Must be the first line!
       ...
       .CreateContainer();
