@@ -102,7 +102,7 @@ And then use a read model similar to this that represents each nickname.
 
       public void Apply(
         IReadModelContext context,
-        IDomainEvent<UserAggregate, UserId, UserCreated> domainEvent)
+        IDomainEvent<UserAggregate, UserId, UserNicknameAdded> domainEvent)
       {
         UserId = domainEvent.AggregateIdentity.Value;
         Nickname = domainEvent.AggregateEvent.Nickname.Value;
