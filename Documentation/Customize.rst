@@ -41,12 +41,12 @@ statistics on command execution times.
 
     void DecorateCommandBus(IServiceRegistration sr)
     {
-      sr.Decorate<ICommandBus>((r, cb) => new StatsCommandBus(sb));
+      sr.Decorate<ICommandBus>((r, cb) => new StatsCommandBus(cb));
     }
 
     class StatsCommandBus : ICommandBus
     {
-      private readonly _internalCommandBus;
+      private readonly ICommandBus _internalCommandBus;
 
       public StatsCommandBus(ICommandBus commandBus)
       {
