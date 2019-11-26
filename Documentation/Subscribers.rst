@@ -106,7 +106,7 @@ Asynchronous subscribers in EventFlow are executed using a scheduled job.
 
 .. code-block:: c#
 
-    eventFlowOptions.Configure(c => IsAsynchronousSubscribersEnabled = true);
+    eventFlowOptions.Configure(c => c.IsAsynchronousSubscribersEnabled = true);
 
 
 .. IMPORTANT::
