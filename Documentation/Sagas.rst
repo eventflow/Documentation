@@ -71,6 +71,8 @@ the ubiquitous language for your domain.
 
         // Make the reservation
         Publish(new MakeReservation(/*...*/));
+        
+        return Task.FromResult(0);
       }
 
       public void Apply(OrderStarted e)
