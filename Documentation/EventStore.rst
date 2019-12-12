@@ -8,6 +8,7 @@ support for alternatives.
 
 - :ref:`In-memory <eventstore-inmemory>` (for test)
 - :ref:`Microsoft SQL Server <eventstore-mssql>`
+- :ref:`Mongo DB <eventstore-mongodb>`
 - :ref:`Files <eventstore-files>` (for test)
 
 
@@ -71,6 +72,22 @@ application install or update, e.g., when the web site is installed.
     ``eventdatamodel_list_type``. EventFlow uses this type to pass entire
     batches of events to the database.
 
+.. _eventstore-mongodb:
+
+Mongo DB
+--------
+
+See :ref:`Mongo DB setup <setup-mongodb>` for details on how to get started using Mongo DB in EventFlow.
+
+To configure EventFlow to use Mongo DB as the event store, simply add the ``UseMongoDbEventStore()`` as shown here.
+
+.. code-block:: c#
+
+    IRootResolver rootResolver = EventFlowOptions.New
+        ...
+        .UseMongoDbEventStore()
+        ...
+        .CreateResolver();
 
 .. _eventstore-files:
 
