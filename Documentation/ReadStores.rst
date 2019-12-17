@@ -12,6 +12,7 @@ EventFlow supports a few others as well.
 - :ref:`In-memory <read-store-inmemory>`
 - :ref:`Microsoft SQL Server <read-store-mssql>`
 - :ref:`Elasticsearch <read-store-elasticsearch>`
+- :ref:`Mongo DB <read-model-mongodb>`
 
 
 Creating read models
@@ -222,3 +223,21 @@ each read model.
 If you want to control the index a specific read model is stored in,
 create an implementation of ``IReadModelDescriptionProvider`` and
 register it in the `EventFlow IoC <./Customize.md>`__.
+
+.. _read-model-mongodb:
+
+Mongo DB
+~~~~~~~~
+
+To configure the Mongo DB read model store, call ``UseMongoDbReadModel<>`` or
+``UseMongoDbReadModel<,>`` with your read model as the generic
+argument.
+
+.. code-block:: c#
+
+    var resolver = EventFlowOptions.New
+      ...
+      .UseMongoDbReadModel<UserReadModel>()
+      .UseMongoDbReadModel<UserNicknameReadModel,UserNicknameReadModelLocator>()
+      ...
+      .CreateResolver();
