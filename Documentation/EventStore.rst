@@ -72,6 +72,14 @@ application install or update, e.g., when the web site is installed.
     ``eventdatamodel_list_type``. EventFlow uses this type to pass entire
     batches of events to the database.
 
+.. _eventstore-postgresql:
+
+PostgreSql event store
+--------
+
+Basically all above on MS SQL server store applicable to PostgreSql. See :ref:`MSSQL setup <setup-postgresql>` 
+for setup documentation.
+
 .. _eventstore-mongodb:
 
 Mongo DB
