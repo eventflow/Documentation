@@ -49,6 +49,7 @@ Contents:
    :caption: Integration
 
    MSSQL
+   PostgreSql
    RabbitMQ
 
 
