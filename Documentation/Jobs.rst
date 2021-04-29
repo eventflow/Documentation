@@ -31,10 +31,9 @@ in seven days.
 
     When working with jobs, you should be aware of the following
 
-    - The default implementation does executes the job *now*, i.e., in the
-      current context. To get another behavior, install e.g.
-      ``EventFlow.Hangfire`` to get support for scheduled jobs. Read below
-      for details on how to configure Hangfire
+    - The default implementation does executes the job *now* (completly ignoring `runAt`/`delay` parameters) and in the
+      current context. To get support for scheduled jobs, inject another implementation of `IJobScheduler`, 
+      e.g. by  installing ``EventFlow.Hangfire`` (Read below for details).
     - Your jobs should serialize to JSON properly, see the section on
       `value objects <./ValueObjects.md>`__ for more information
     - If you use the provided ``PublishCommandJob``, make sure that your
