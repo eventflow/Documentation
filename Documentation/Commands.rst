@@ -68,7 +68,7 @@ following simplified scenario.
 
 1. The user wants to change his password
 2. The user fills in the "change password form"
-3. The user submits the for twice, either accidentally or impatiently
+3. The user submits the form twice, either accidentally or impatiently
 4. The first web request completes and the password is changed. However,
    as the browser is waiting on the second web request, this result is
    ignored
