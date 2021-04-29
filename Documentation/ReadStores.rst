@@ -109,6 +109,31 @@ And then use a read model similar to this that represents each nickname.
         Nickname = domainEvent.AggregateEvent.Nickname.Value;
       }
     }
+    
+You may need to assign the id of your readmodel from a batch of nicknames assigned on the creation event of the username.
+You would then read the assigned readmodel id acquired from the locator using the 'context' field:
+
+.. code-block:: c#
+
+    public class UserNicknameReadModel : IReadModel,
+      IAmReadModelFor<UserAggregate, UserId, UserCreatedEvent>
+    {
+      public string Id { get; set; }
+      public string UserId { get; set; }
+      public string Nickname { get; set; }
+
+      public void Apply(
+        IReadModelContext context,
+        IDomainEvent<UserAggregate, UserId, UserCreatedEvent> domainEvent)
+      {
+        var id = context.ReadModelId;
+        UserId = domainEvent.AggregateIdentity.Value;        
+        var nickname = domainEvent.AggregateEvent.Nicknames.Single(n => n.Id == id);
+        
+        Id = nickname.Id;
+        Nickname = nickname.Nickname;
+      }
+    }
 
 We could then use this nickname read model to query all the nicknames
 for a given user by search for read models that have a specific
