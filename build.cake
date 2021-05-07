@@ -282,4 +282,4 @@ void ExecuteTest(string files, string resultsFile)
         .WithFilter("-[*Shipping*]*"));
 }
 
-RunTarget(Argument<string>("target", "Package"));
+RunTarget(Argument<string>("target", "All"));
