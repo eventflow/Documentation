@@ -61,6 +61,7 @@ Contents:
    IoC
    Log
    Snapshots
+   VersionedTypes
    Customize
    ValueObjects
    DosAndDonts
