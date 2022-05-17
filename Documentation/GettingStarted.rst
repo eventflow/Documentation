@@ -24,8 +24,8 @@ The above line does configures several important defaults
 - And lastly, default implementations of all the internal parts of EventFlow
 
 .. IMPORTANT::
-    If you're using ASP.NET Core, you should install the ***EventFlow.AspNetCore*** package and invoke
-    `AddAspNetCoreMetadataProviders` in Startup.
+    If you're using ASP.NET Core, you should install ***EventFlow.AspNetCore*** and ***EventFlow.DependencyInjection*** packages and invoke
+    `AddAspNetCore` in Startup.
 
 .. code-block:: c#
 
@@ -34,7 +34,10 @@ The above line does configures several important defaults
         services.AddEventFlow(ef =>
         {
             ef.AddDefaults(typeof(Startup).Assembly);
-            ef.AddAspNetCoreMetadataProviders();
+            ef.AddAspNetCore(opt =>
+            {
+                opt.AddDefaultMetadataProviders();
+            });
         });
     }
 
